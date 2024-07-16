@@ -1,21 +1,14 @@
-import React, { Component } from 'react'
-import TEST from './Test/Test';
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      myVar: 'Hello Arpit!'
-    }
-  }
-  render() {
-    return (
-      <div><TEST />
-        {this.state.myVar}
+import Button from "./components/Button/Button";
+import Input from "./components/Input/Input";
 
-        {/* Redering and Rerending */}
-      </div>
-    )
-  }
+function App() {
+  return (
+    <div>
+      <Input />
+      <Button title="Submit" myClick={() => console.log('Arpit')} />
+    </div>
+  )
 }
+
 
 export default App;

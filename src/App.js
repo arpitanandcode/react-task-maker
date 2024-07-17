@@ -1,12 +1,8 @@
-import Button from "./components/Button/Button";
-import Input from "./components/Input/Input";
+import RouterPath from "./routes/RouterPath";
 
 function App() {
   return (
-    <div>
-      <Input />
-      <Button title="Submit" myClick={() => console.log('Arpit')} />
-    </div>
+    <RouterPath />
   )
 }
 

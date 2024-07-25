@@ -1,0 +1,18 @@
+.Task {
+  background-color: #22baa0;
+  color: white;
+  width: 500px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: sans-serif;
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}

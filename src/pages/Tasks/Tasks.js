@@ -1,39 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import useApi from '../../hooks/useApi';
-import useStorage from '../../hooks/useStorage';
-
+import { BASEURL } from '../../consts/BASEURL';
+import styles from "./Task.module.css";
+import Button from "../../components/Button/Button";
 function Tasks() {
-  // useState 
-  const [tasks, setTasks] = useState([
-    {
-      title: 'Arpit'
-    }
-  ]);
 
-  const [data, error, loading] = useApi('https://jsonplaceholder.typicode.com/todos/1', 'GET');
+  const [url, setUrl] = useState(null);
 
-  const [data1] = useStorage('myKey', 'Arpitanand');
+  const [method, setMethod] = useState(null);
 
-  const [text, setText] = useState("");
-  const [text2, setText2] = useState("");
+  const [data, _error, isLoading] = useApi(url, method);
 
-  const changeNameHandler = () => {
-    setTasks((prevTasks) => {
-      const newTasks = [...prevTasks];
-      newTasks[0].title = "Anand";
-      return newTasks;
-    });
+  useEffect(() => {
+    setUrl(`${BASEURL}/task/get`);
+    setMethod('GET');
+  }, [])
+
+  const deleteHandler = (id) => {
+    setUrl(`${BASEURL}/task/${id}/delete`);
+    setMethod('DELETE');
   };
 
   return (
-    <div>
-      {tasks[0]?.title}
-      {!loading ? !error ? <p>This is coming from server {(data?.data?.title)}</p> : 'soME ERROR HAPPEND' : 'LOADING...'}
-
-      <button onClick={changeNameHandler}>Change me!</button>
-      <input type="text" value={text} onChange={(e) => { setText(e.target.value) }} />
-      <input type="text" value={text2} onChange={(e) => { setText2(e.target.value) }} />
-    </div>
+    <div className={styles.container}>
+      {
+        isLoading ? 'Loading...' : <div>
+          {
+            data?.data.length > 0 && data?.data ? data?.data.map((item, index) => {
+              return (
+                <div className={styles.Task} key={index}>
+                  <p onClick={() => deleteHandler(item._id)}>{item.title}</p>
+                  <div>
+                    <Button variant="success" title="Edit" />
+                    &nbsp;&nbsp;
+                    <Button variant="error" title="Delete" myClick={() => deleteHandler(item._id)} />
+                  </div>
+                </div>
+              )
+            }) : null
+          }
+        </div>
+      }
+    </div >
   );
 }
 

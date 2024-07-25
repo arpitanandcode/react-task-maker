@@ -16,7 +16,7 @@ function useApi(urlName, met) {
       url: urlName
     }).then(response => {
       console.log(response);
-      setState(response);
+      setState(response.data);
       setIsLoading(false);
     }).catch(err => {
       setIsLoading(false);
